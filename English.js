@@ -153,3 +153,11 @@ history			/'hɪst(ə)rɪ/		历史
 core			/kɔː/				核心
 
 examine			/ɪg'zæmɪn/			查看，检查
+
+issue			/'ɪʃu/				发布
+
+team			/tiːm/				团队
+
+media			/'miːdɪə/			媒体
+
+payment			/'peɪm(ə)nt/		支付
