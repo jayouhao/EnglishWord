@@ -161,3 +161,15 @@ team			/tiːm/				团队
 media			/'miːdɪə/			媒体
 
 payment			/'peɪm(ə)nt/		支付
+
+line 			/laɪn/				排，路线
+
+month			/mʌnθ/				月
+
+day				/deɪ/ 				天
+
+merchant        /'mɜːtʃ(ə)nt/		商家
+
+leave  			/liːv/				离开
+
+have			/həv/ 				有
