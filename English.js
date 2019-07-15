@@ -173,3 +173,11 @@ merchant        /'mɜːtʃ(ə)nt/		商家
 leave  			/liːv/				离开
 
 have			/həv/ 				有
+
+controller		/kən'trəʊlə/		控制器
+
+space			/speɪs/				空间
+
+public			/'pʌblɪk/			公众
+
+forbidden		/fə'bɪd(ə)n/ 		禁止
