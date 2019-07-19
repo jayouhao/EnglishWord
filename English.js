@@ -257,3 +257,8 @@ refresh			/rɪ'freʃ/ 			刷新一下
 there			/ðɛr/ 				在哪，在那
 
 chat			/tʃæt/ 				聊天
+
+way				/wei/				方法
+
+why				/wai/				为什么，什么
+
