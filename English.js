@@ -173,3 +173,87 @@ merchant        /'mɜːtʃ(ə)nt/		商家
 leave  			/liːv/				离开
 
 have			/həv/ 				有
+
+been 			/biːn/ 				是
+
+give			/gɪv/				给
+
+tomorrow		/tə'mɒrəʊ/ 			明天
+
+may				/meɪ/				可以
+
+want			/want/				要
+
+must			/mʌst/				必须
+
+place			/pleɪs/ 			放置
+
+customer		/'kʌstəmə/			客户
+
+free			/friː/ 				空闲
+
+has				/hæz/				允许
+
+approved		/ə'pruːvd/			批准
+
+all right 		/raɪt/ 				好
+
+also			/'ɔlso/				也是
+
+try				/traɪ/				再来
+
+again			/ə'gen;/			再一次
+
+look			/lʊk/ 				看
+
+verification	/,verɪfɪ'keɪʃ(ə)n/	验证
+
+slow			/sləʊ/				慢
+
+received		/rɪ'siːvd/ 			收到
+
+can 			 /kæn/ 				能
+
+mode  			 /məʊd/ 			方式
+
+backstage		/bæk'steɪdʒ/ 		后台
+
+first			/fɜːst/ 			首先
+
+failure			/'feɪljə/			失败
+
+received		/rɪ'siːvd/ 			接到
+
+could			/kəd/				能够
+
+record			/(for v.)rɪˈkɔːd/	记录
+
+wait			/weɪt/				稍等
+
+close			/kləʊs/ 			关闭
+
+transaction		/træn'zækʃən/ 		交易
+
+already			/ɔːl'redɪ/			已经
+
+white			/waɪt/				白色
+
+only			/'əʊnlɪ/			只有
+
+now				/naʊ/				现在
+
+convert			/kən'vɜːt/			变成
+
+anew			/ə'njuː/			重新
+
+have a look		看一下
+
+bingo			/'bɪŋgəʊ/ 			你成功了
+
+thanks			/θæŋks/				谢谢
+
+refresh			/rɪ'freʃ/ 			刷新一下
+
+there			/ðɛr/ 				在哪，在那
+
+chat			/tʃæt/ 				聊天
