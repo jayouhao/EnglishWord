@@ -116,3 +116,25 @@ var dom = document.getElementsByClassName("icon-right");
 
 跳转
 onclick="window.location.href='html'"
+onclick="window.history.go(-1)"
+
+
+弹出
+this.$createToast({txt: 'Plain txt',type: 'txt',time:1100}).show()
+      
+
+
+倒计时       import { setInterval, clearInterval } from "timers";
+var sum = 10000;
+function diao(){    
+  console.log("要改的东西");
+};
+diao();      
+var times = setInterval(() => {
+    if (sum <= 0) {
+        clearInterval(times); 
+    } else {
+        diao();
+        sum--;
+    }
+}, 1000);

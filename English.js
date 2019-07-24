@@ -262,3 +262,18 @@ way				/wei/				方法
 
 why				/wai/				为什么，什么
 
+study			/'stʌdɪ/			学习
+
+arrows			/'ærəus/			箭头
+
+notice			/'nəʊtɪs/			公告
+
+centre 			/'sentə/			中心
+
+apply			/ə'plaɪ/			申请
+
+foot			/fʊt/ 				底部
+
+manage			/'mænɪdʒ/ 			管理
+
+industry		/'ɪndəstrɪ/			行业
