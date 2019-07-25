@@ -92,12 +92,11 @@ autocomplete="off"
 
 
 
-wait a moment
-
 //清楚小数点   取小数点
 var clear=(s)=>parseInt(Number(s)*10000)/10000;
 
 
+浏览器返回键
 jQuery(document).ready(function ($) {
     if (window.history && window.history.pushState) {
         $(window).on('popstate', function () {
@@ -106,6 +105,8 @@ jQuery(document).ready(function ($) {
     }
     window.history.pushState('forward', null);
 });
+
+
 
 阻止冒泡
 e.stopPropagation();
@@ -120,7 +121,7 @@ onclick="window.history.go(-1)"
 
 
 弹出
-this.$createToast({txt: 'Plain txt',type: 'txt',time:1100}).show()
+this.$createToast({txt: 'Plain txt',type: 'txt',time:1100}).show();
       
 
 
@@ -138,3 +139,10 @@ var times = setInterval(() => {
         sum--;
     }
 }, 1000);
+
+
+颜色渐变
+background: -webkit-gradient(linear, left top, left bottom, from(#cd9f4c), to(#efe8a5));
+中间
+background: -webkit-radial-gradient(red, green, blue);
+

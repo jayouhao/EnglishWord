@@ -277,3 +277,11 @@ foot			/fʊt/ 				底部
 manage			/'mænɪdʒ/ 			管理
 
 industry		/'ɪndəstrɪ/			行业
+
+garden			/'gɑːd(ə)n/			花园
+
+platform		/'plætfɔːm/ 		平台
+
+city  			/'sɪtɪ/ 			城市
+
+flower			/'flaʊə/			花
