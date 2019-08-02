@@ -19,6 +19,19 @@
 
 
 
+    //设置location
+     this.$router.push({path:"register",query:{id:1,bt:2,cc:"撒地方"}})
+     
+    function loca(name)//拿到location
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.hash.split("?")[1].match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    loca('name')
+
+
+
 
     检验手机号码
     var regPhone = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
@@ -146,3 +159,72 @@ background: -webkit-gradient(linear, left top, left bottom, from(#cd9f4c), to(#e
 中间
 background: -webkit-radial-gradient(red, green, blue);
 
+
+图片上传
+accept="image/gif,image/jpeg,image/jpg,image/png,image/svg"
+$("#file").change(function(){
+    var $this = $(this);
+    var file = this.files[0];
+    if(file.length == 0)
+    {
+      mui.alert("请选择要上传的图片");
+      return false;
+    }
+    var data = new FormData();
+    data.append('image',file);
+    // console.log(data);return false;
+    mui.showLoading("正在上传...");
+    $.ajax({
+      url:"/index/upload/uploadEditor",
+      type:"post",
+      data:data,
+      processData:false,
+      contentType:false,
+      dataType:'json',
+      success:function(data){
+        var url = data.data[0];
+        if(data.errno == 0)
+        {
+          mui.hideLoading();
+          $("#show").attr("src", url);
+          $("#avatar").val(url);
+        }
+        else
+        {
+          mui.alert(data.fail);
+        }
+      }
+    })
+  })
+
+
+
+
+      $(document).scroll(function () {
+        var srollPos = $(document).scrollTop();    //滚动条距顶部距离(页面超出窗口的高度)
+
+        totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+        if (($(document).height() - range) <= totalheight) {
+          console.log("底部")
+        }
+      })
+
+
+
+禁止点击
+pointer-events: none;
+
+<script src="//g.yimenyun.ltd/cdn/jsbridge-mini.js"></script>
+var text = "Hello 世界 "
+jsBridge.setClipboardText(text);
+alert("已复制到剪贴板");
+
+
+刷新
+location.reload();
+
+
+
+
+ 
+                
