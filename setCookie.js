@@ -24,11 +24,13 @@
      
     function loca(name)//拿到location
     {
-        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-        var r = window.location.hash.split("?")[1].match(reg);
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");        
+        var r = window.location.search.split("?")[1].match(reg);
         if(r!=null)return  unescape(r[2]); return null;
     }
     loca('name')
+
+    core.getParame('pan')
 
 
 
@@ -50,18 +52,20 @@
 
     <p class="pullnew">{{pullnew}}</p>
 
-   .pullnew {
-  font-size: 0.4rem;
-  padding: 0.6rem 0;
+.pullnew {
+  font-size: 0.34rem;
+  padding: 0.4rem 0;
   text-align: center;
 }
 
-    mounted() {
+    mounted:function() {
     window.addEventListener("scroll", this.handleScroll, true);
   },
 
   //下拉更新  vue下拉更新 下拉加载
-    handleScroll() {
+
+    handleScroll:function(){
+      var ts=this;
       var scrollTop =
         document.documentElement.scrollTop || document.body.scrollTop; //变量windowHeight是可视区的高度
       var windowHeight =
@@ -70,26 +74,26 @@
         document.documentElement.scrollHeight || document.body.scrollHeight;
       if (scrollTop + windowHeight == scrollHeight) {
         //请求数据接口
-        this.list.length > 9 ? (this.page++,this.request(this.page)) : "";
-        return false;
+        if(ts.state){
+          ts.page++;
+          ts.start();
+        }                
       }
     },
 
 
-    判断
-    if(res.data.code==0&&res.data.info.length>0){
-        var he=()=>{
-            for(var i=0; i<res.data.info.length; i++){
-              this.items.push(res.data.info[i])
-            }
-        }
-        !s&&res.data.info.length<19?(this.items=res.data.info,this.newxin="已加载完所有数据"):
-        !s&&res.data.info.length>19?(this.items=res.data.info,this.newxin="下拉更新"):"";
-        s&&res.data.info.length<19?(he(),this.newxin="已加载完所有数据")
-        :s?(he(),this.newxin="下拉更新"):'';
-    }else{
-      !s?(this.newxin="",this.items = []):this.newxin="已加载完所有数据";
-    }
+判断
+ts.state = true;
+for (var i = 0; i < res.data.info.length; i++) {
+  ts.videolist.push(res.data.info[i]);
+}
+if (res.data.info.length < 10) {
+  ts.state = false;
+  ts.pullnew = "已加载完所有数据";
+} else {
+  ts.pullnew = "下拉更新";
+}
+
 
 
 
@@ -121,7 +125,7 @@ jQuery(document).ready(function ($) {
 
 
 
-阻止冒泡
+阻止冒泡冒泡冒泡
 e.stopPropagation();
 
 js修改伪类
@@ -133,8 +137,25 @@ onclick="window.location.href='html'"
 onclick="window.history.go(-1)"
 
 
-弹出
+
+弹出  提示
+vant.Toast({duration: 1300,message: '提示'});
+
+layer.open({content: res.data.msg,skin: 'msg',time:1});
+
 this.$createToast({txt: 'Plain txt',type: 'txt',time:1100}).show();
+if(!self.mobile) return core.toast('请输入手机号');
+
+请求
+core.load("{:url('index/publics/get_new_notice')}", {}, function(res){
+    console.log(res);
+    if(res.code==0){
+        self.mes=res.info;                        
+    }else{
+        core.toast(res.msg);
+    }
+})
+
       
 
 
@@ -224,7 +245,33 @@ alert("已复制到剪贴板");
 location.reload();
 
 
+button
+background: linear-gradient(90deg, rgba(255, 190, 30, 1) 0%, rgba(251, 211, 62, 1) 100%);
 
 
- 
-                
+垂直居中
+align-items:center;
+
+
+点点
+overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+
+
+  排序
+  white-space: pre-line;
+
+
+  判断app 手机
+ var u = navigator.userAgent, app = navigator.appVersion;
+  var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器  
+  var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
+  console.log(isiOS, isAndroid, 'kkk')
+  if(isiOS||isAndroid){
+      window.location.href = 'login.html';
+  }else{
+      window.location.href = 'http://vfe.wzhigang.cn/YHEWy1';
+  }
