@@ -7,8 +7,7 @@
     }
     setCookie("name", phoneNum);
     
- function getCookie(name)//拿到cookie
-    {
+ function getCookie(name){
         var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
         if (arr = document.cookie.match(reg))
             return unescape(arr[2]);
@@ -22,12 +21,12 @@
     //设置location
      this.$router.push({path:"register",query:{id:1,bt:2,cc:"撒地方"}})
      
-    function loca(name)//拿到location
-    {
-        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");        
+   function loca(name) {
+        if (!window.location.search) return null;
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");        
         var r = window.location.search.split("?")[1].match(reg);
-        if(r!=null)return  unescape(r[2]); return null;
-    }
+        if (r != null) return unescape(r[2]); return null;
+      }
     loca('name')
 
     core.getParame('pan')
@@ -36,15 +35,16 @@
 
 
     检验手机号码
+  ismobile(s){
     var regPhone = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
     var patternPhone = new RegExp(regPhone);
-    !patternPhone.test(phoneNum); 请输入正确的手机号码
+    if(patternPhone.test(s)){
+      return true
+    }else{
+      return false
+    }
+  },
 
-
-
-
-
-    
 
 
 
@@ -64,38 +64,55 @@
 
   //下拉更新  vue下拉更新 下拉加载
 
-    handleScroll:function(){
-      var ts=this;
-      var scrollTop =
-        document.documentElement.scrollTop || document.body.scrollTop; //变量windowHeight是可视区的高度
-      var windowHeight =
-        document.documentElement.clientHeight || document.body.clientHeight; //变量scrollHeight是滚动条的总高度
-      var scrollHeight =
-        document.documentElement.scrollHeight || document.body.scrollHeight;
-      if (scrollTop + windowHeight == scrollHeight) {
-        //请求数据接口
-        if(ts.state){
-          ts.page++;
-          ts.start();
-        }                
+handleScroll(){
+    var scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop; //变量windowHeight是可视区的高度
+    var windowHeight =
+      document.documentElement.clientHeight || document.body.clientHeight; //变量scrollHeight是滚动条的总高度
+    var scrollHeight =
+      document.documentElement.scrollHeight || document.body.scrollHeight;
+    if (scrollTop + windowHeight == scrollHeight) {
+      //请求数据接口
+      if(this.state){
+        this.page++;
+        this.start();
       }
-    },
+    }
+  },
 
 
 判断
-ts.state = true;
-for (var i = 0; i < res.data.info.length; i++) {
-  ts.videolist.push(res.data.info[i]);
-}
-if (res.data.info.length < 10) {
-  ts.state = false;
-  ts.pullnew = "已加载完所有数据";
-} else {
-  ts.pullnew = "下拉更新";
-}
+  this.state = true;
+  for (var i = 0; i < res.data.info.length; i++) {
+    this.videolist.push(res.data.info[i]);
+  }
+  if (res.data.info.length < 10) {
+    this.state = false;
+    this.pullnew = "已加载完所有数据";
+  } else {
+    this.pullnew = "下拉更新";
+  }
 
 
 
+not vue
+
+  function handleScroll() {      
+      var scrollTop =
+          document.getElementsByClassName('screenHeight')[0].scrollTop;
+      var windowHeight =
+          document.getElementsByClassName('screenHeight')[0].clientHeight;
+      var scrollHeight =
+          document.getElementsByClassName('screenHeight')[0].scrollHeight;
+      if (scrollTop + windowHeight == scrollHeight) {
+          //请求数据接口
+          if (state) {
+              page++;
+              requ(type)
+          }
+      }
+  }
+      window.addEventListener("scroll", handleScroll, true);
 
 
 
@@ -139,9 +156,19 @@ onclick="window.history.go(-1)"
 
 
 弹出  提示
+  
+this.$toast.loading({message:'',duration:1400,type: 'text'});
+this.$toast.loading({message:res.data.msg,duration:1400,type: 'text'});
+
+this.$toast.loading({message:'正在上传',duration:0,loadingType: 'spinner '});
+this.$toast.clear();
+
 vant.Toast({duration: 1300,message: '提示'});
 
+<script src="../js/layer.js"></script>
 layer.open({content: res.data.msg,skin: 'msg',time:1});
+
+this.$createToast({txt: "",type: "txt",time:1200}).show();
 
 this.$createToast({txt: 'Plain txt',type: 'txt',time:1100}).show();
 if(!self.mobile) return core.toast('请输入手机号');
@@ -221,14 +248,9 @@ $("#file").change(function(){
 
 
 
-      $(document).scroll(function () {
-        var srollPos = $(document).scrollTop();    //滚动条距顶部距离(页面超出窗口的高度)
-
-        totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
-        if (($(document).height() - range) <= totalheight) {
-          console.log("底部")
-        }
-      })
+      var num = getQueryString("num");
+  var cid = getQueryString("cid");
+  var order_id = getQueryString("order_id");
 
 
 
@@ -239,6 +261,7 @@ pointer-events: none;
 var text = "Hello 世界 "
 jsBridge.setClipboardText(text);
 alert("已复制到剪贴板");
+
 
 
 刷新
@@ -260,9 +283,14 @@ overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
 
+点点一行
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+
 
   排序
-  white-space: pre-line;
+
 
 
   判断app 手机
@@ -274,4 +302,34 @@ overflow: hidden;
       window.location.href = 'login.html';
   }else{
       window.location.href = 'http://vfe.wzhigang.cn/YHEWy1';
+  }
+
+
+
+  
+
+上传图片  图片图片
+
+    upImg(e) {
+          var ts = this;
+          var file = e.target.files[0];
+          let fd = new FormData();
+          fd.append("file", file);     
+    axios.post(api + "index/Upload/uploadImg",fd
+    )
+
+
+
+
+v-cloak
+
+
+
+
+删除数组
+
+for(var i=0; i<this.list.length; i++){
+    if(this.list[i].id==id){
+      this.list.splice(i,i+1);
+    }
   }
