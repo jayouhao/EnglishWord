@@ -1,6 +1,5 @@
     function setCookie(name, value)//设置cookie  7天
-    {
-        var Days = 30;
+    {        
         var exp = new Date();
         exp.setTime(exp.getTime() + 7 * 24 * 60 * 60 * 1000);
         document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
@@ -58,7 +57,7 @@
   text-align: center;
 }
 
-    mounted:function() {
+    mounted() {
     window.addEventListener("scroll", this.handleScroll, true);
   },
 
@@ -81,18 +80,29 @@ handleScroll(){
   },
 
 
-判断
-  this.state = true;
-  for (var i = 0; i < res.data.info.length; i++) {
-    this.videolist.push(res.data.info[i]);
+beforeDestroy(){
+    window.removeEventListener("scroll", this.handleScroll, true);
   }
-  if (res.data.info.length < 10) {
-    this.state = false;
-    this.pullnew = "已加载完所有数据";
-  } else {
-    this.pullnew = "下拉更新";
-  }
+  
 
+判断
+.then(res=>{
+    this.state = true;
+     if(res.data.code==0){
+        for (var i = 0; i < res.data.info.length; i++) {
+          this.info.push(res.data.info[i]);
+        }
+        if (res.data.info.length < 10) {
+          this.state = false;
+          this.pullnew = "已加载完所有数据";
+        } else {
+          this.pullnew = "下拉更新";
+        }
+        if(this.page==1&&res.data.info.length<1){
+          this.pullnew = "暂无数据";
+        }
+    }
+})
 
 
 not vue
@@ -161,9 +171,32 @@ this.$toast.loading({message:'',duration:1400,type: 'text'});
 this.$toast.loading({message:res.data.msg,duration:1400,type: 'text'});
 
 this.$toast.loading({message:'正在上传',duration:0,loadingType: 'spinner '});
+
+this.$toast.success({message:'成功退出',duration:1200});
+this.$toast.fail({message:'上传失败',duration:1200});
+
+this.$toast.success({message:res.data.msg,duration:1200});
+this.$toast.fail({message:res.data.msg,duration:1200});
+
+
 this.$toast.clear();
 
 vant.Toast({duration: 1300,message: '提示'});
+
+写js  axios
+this.$toast.loading({message:'正在提交',duration:0,loadingType: 'spinner '});
+.then(res=>{
+    if(res.data.code==0){
+      this.$toast.success({message:res.data.msg,duration:1600});
+      setTimeout(()=>{
+        this.$router.back();
+      },1600)
+    }else{
+      this.$toast.fail({message:res.data.msg,duration:1200});
+    }
+  })
+
+
 
 <script src="../js/layer.js"></script>
 layer.open({content: res.data.msg,skin: 'msg',time:1});
@@ -200,6 +233,29 @@ var times = setInterval(() => {
         sum--;
     }
 }, 1000);
+
+var sum = rs.limit_time;
+function diao() {
+    var time = parseInt(sum / 3600);
+    var minute = parseInt(sum / 60) - (time * 60);
+    var sec = sum - (minute * 60) - (time * 3600);
+    time < 10 ? (time = "0" + time) : "";
+    minute < 10 ? (minute = "0" + minute) : "";
+    sec < 10 ? (sec = "0" + sec) : "";
+    timedom.text(`${time}:${minute}:${sec}`);
+};
+diao();
+
+var times = setInterval(() => {
+      if (sum <= 0) {
+          clearInterval(times);
+          timedom.css({ display: "none" });
+          pudom.css({ display: "block" });
+      } else {
+          diao();
+          sum--;
+      }
+  }, 1000);
 
 
 颜色渐变
@@ -290,7 +346,9 @@ white-space: nowrap;
 
 
   排序
-
+    word-break: keep-all;
+    换行
+    overflow-wrap: break-word;
 
 
   判断app 手机
@@ -318,18 +376,58 @@ white-space: nowrap;
     axios.post(api + "index/Upload/uploadImg",fd
     )
 
+axios.defaults.timeout = 10000 // 超时时间
+
+axios.interceptors.response.use((res) =>{
+    // 用户信息是否超时，重定向到登录页面  请求拦截
+  if(res.data.code==-2){
+    Toast.loading({message:res.data.msg,duration:0,loadingType: 'spinner '});
+    setTimeout(()=>{
+      console.log(router.history.current.path)
+      if(router.history.current.path!='/signlogin'){
+        Toast.loading({message:"正在跳登录页",duration:0,loadingType: 'spinner '});
+        setTimeout(()=>{
+          Toast.clear();
+          router.replace("signlogin");
+        },600)
+      }
+    },1200)
+    return;
+  }
+  return res;
+}, (error) =>{
+    // Do something with response error
+})
 
 
 
 v-cloak
 
+google  翻译
+notranslate
 
+canvas转imgimg  保存图片
+this.$refs.imgsave.childNodes[0].toDataURL('image/png')
+jsBridge.saveImageToAlbum(this.$refs.imgsave.childNodes[0].toDataURL('image/png'), function(succ) {
+  succ ? this.$toast.success({message:'保存成功',duration:1200}) : this.$toast.fail({message:'保存失败：转码失败或没有相册使用权限',duration:1200});
+});
 
-
-删除数组
+删除数组 array
 
 for(var i=0; i<this.list.length; i++){
     if(this.list[i].id==id){
-      this.list.splice(i,i+1);
+      this.list.splice(i,1);
     }
   }
+
+
+a标签
+a{
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-user-select: none;
+  -moz-user-focus: none;
+  -moz-user-select: none;
+}
+
+禁止输入中文中文
+this.address=s.replace(/[\u4E00-\u9FA5]|[\uFE30-\uFFA0]/g,'');
