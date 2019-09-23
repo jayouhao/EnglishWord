@@ -346,9 +346,9 @@ white-space: nowrap;
 
 
   排序
-    word-break: keep-all;
+    white-space: pre-wrap;
     换行
-    overflow-wrap: break-word;
+    word-break: break-all;
 
 
   判断app 手机
