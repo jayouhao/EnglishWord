@@ -313,6 +313,21 @@ $("#file").change(function(){
 禁止点击
 pointer-events: none;
 
+禁止复制
+document.oncopy = function(){
+  return false;
+}
+
+
+乘法浮点运算
+function accMul(arg1,arg2){
+  var m=0,s1=arg1.toString(),s2=arg2.toString();
+  try{m+=s1.split(".")[1].length}catch(e){}
+  try{m+=s2.split(".")[1].length}catch(e){}
+  return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m)
+}
+
+
 <script src="//g.yimenyun.ltd/cdn/jsbridge-mini.js"></script>
 var text = "Hello 世界 "
 jsBridge.setClipboardText(text);
@@ -431,3 +446,26 @@ a{
 
 禁止输入中文中文
 this.address=s.replace(/[\u4E00-\u9FA5]|[\uFE30-\uFFA0]/g,'');
+
+
+
+平台平台
+Appid: __UNI__C35D8BD
+
+io.dcloud.UNIB00DF47
+
+HBuider平台：https://dev.dcloud.net.cn/app/index?type=0
+企业类型：
+账号：1426079549@qq.com     
+密码：347128zqm2019
+
+https://fir.im/
+
+15920910116@163.com
+11112222zxh
+
+
+高德
+账号：18011725693    密码：347128zqm
+
+平台平台
