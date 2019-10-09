@@ -361,22 +361,17 @@ white-space: nowrap;
 
 
   排序
-    white-space: pre-wrap;
-    换行
-    word-break: break-all;
+  white-space: pre-wrap;
+  换行
+  word-break: break-all;
 
 
-  判断app 手机
- var u = navigator.userAgent, app = navigator.appVersion;
-  var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器  
-  var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  
-  console.log(isiOS, isAndroid, 'kkk')
-  if(isiOS||isAndroid){
-      window.location.href = 'login.html';
-  }else{
-      window.location.href = 'http://vfe.wzhigang.cn/YHEWy1';
-  }
-
+判断app 手机  判断判断
+if (/LT-APP/.test(navigator.userAgent)) {
+  alert("在APP内");
+} else {
+  alert("不在APP内");
+}
 
 
   
