@@ -108,12 +108,9 @@ beforeDestroy(){
 not vue
 
   function handleScroll() {      
-      var scrollTop =
-          document.getElementsByClassName('screenHeight')[0].scrollTop;
-      var windowHeight =
-          document.getElementsByClassName('screenHeight')[0].clientHeight;
-      var scrollHeight =
-          document.getElementsByClassName('screenHeight')[0].scrollHeight;
+      var scrollTop =document.getElementsByClassName('screenHeight')[0].scrollTop;
+      var windowHeight =document.getElementsByClassName('screenHeight')[0].clientHeight;
+      var scrollHeight =document.getElementsByClassName('screenHeight')[0].scrollHeight;
       if (scrollTop + windowHeight == scrollHeight) {
           //请求数据接口
           if (state) {
@@ -319,12 +316,46 @@ document.oncopy = function(){
 }
 
 
-乘法浮点运算
-function accMul(arg1,arg2){
-  var m=0,s1=arg1.toString(),s2=arg2.toString();
-  try{m+=s1.split(".")[1].length}catch(e){}
-  try{m+=s2.split(".")[1].length}catch(e){}
-  return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m)
+乘法浮点运算  精度
+//加 
+function floatAdd(arg1,arg2){ 
+  var r1,r2,m; 
+  try{r1=arg1.toString().split(".")[1].length}catch(e){r1=0} 
+  try{r2=arg2.toString().split(".")[1].length}catch(e){r2=0} 
+  m=Math.pow(10,Math.max(r1,r2)); 
+  return (arg1*m+arg2*m)/m; 
+} 
+   
+//减 
+function floatSub(arg1,arg2){ 
+ var r1,r2,m,n; 
+ try{r1=arg1.toString().split(".")[1].length}catch(e){r1=0} 
+ try{r2=arg2.toString().split(".")[1].length}catch(e){r2=0} 
+ m=Math.pow(10,Math.max(r1,r2)); 
+ //动态控制精度长度 
+ n=(r1>=r2)?r1:r2; 
+ return ((arg1*m-arg2*m)/m).toFixed(n); 
+} 
+   
+//乘 
+function floatMul(arg1,arg2) { 
+ var m=0,s1=arg1.toString(),s2=arg2.toString(); 
+ try{m+=s1.split(".")[1].length}catch(e){} 
+ try{m+=s2.split(".")[1].length}catch(e){} 
+ return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m); 
+} 
+   
+   
+//除 
+function floatDiv(arg1,arg2){ 
+  var t1=0,t2=0,r1,r2; 
+  try{t1=arg1.toString().split(".")[1].length}catch(e){} 
+  try{t2=arg2.toString().split(".")[1].length}catch(e){} 
+    
+  r1=Number(arg1.toString().replace(".","")); 
+  
+  r2=Number(arg2.toString().replace(".","")); 
+  return (r1/r2)*Math.pow(10,t2-t1); 
 }
 
 
@@ -414,7 +445,10 @@ axios.interceptors.response.use((res) =>{
 v-cloak
 
 google  翻译
-notranslate
+class="notranslate"  添加类名，禁止google翻译
+
+:class="egls?'':'notranslate'"
+
 
 canvas转imgimg  保存图片
 this.$refs.imgsave.childNodes[0].toDataURL('image/png')
@@ -444,23 +478,4 @@ this.address=s.replace(/[\u4E00-\u9FA5]|[\uFE30-\uFFA0]/g,'');
 
 
 
-平台平台
-Appid: __UNI__C35D8BD
 
-io.dcloud.UNIB00DF47
-
-HBuider平台：https://dev.dcloud.net.cn/app/index?type=0
-企业类型：
-账号：1426079549@qq.com     
-密码：347128zqm2019
-
-https://fir.im/
-
-15920910116@163.com
-11112222zxh
-
-
-高德
-账号：18011725693    密码：347128zqm
-
-平台平台
