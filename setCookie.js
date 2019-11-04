@@ -70,7 +70,7 @@ handleScroll(){
       document.documentElement.clientHeight || document.body.clientHeight; //变量scrollHeight是滚动条的总高度
     var scrollHeight =
       document.documentElement.scrollHeight || document.body.scrollHeight;
-    if (scrollTop + windowHeight == scrollHeight) {
+    if (scrollTop + windowHeight >= scrollHeight-10) {
       //请求数据接口
       if(this.state){
         this.page++;
@@ -163,7 +163,8 @@ onclick="window.history.go(-1)"
 
 
 弹出  提示
-  
+layer.open({content: res.data.msg,skin: 'msg',time: 2});
+
 this.$toast.loading({message:'',duration:1400,type: 'text'});
 this.$toast.loading({message:res.data.msg,duration:1400,type: 'text'});
 
@@ -441,6 +442,9 @@ axios.interceptors.response.use((res) =>{
 })
 
 
+"lid-flexible": "1.1.0"
+
+"qrcobejs2": "0.1.2"
 
 v-cloak
 
