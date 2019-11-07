@@ -302,12 +302,6 @@ $("#file").change(function(){
 
 
 
-      var num = getQueryString("num");
-  var cid = getQueryString("cid");
-  var order_id = getQueryString("order_id");
-
-
-
 禁止点击
 pointer-events: none;
 
@@ -483,3 +477,6 @@ this.address=s.replace(/[\u4E00-\u9FA5]|[\uFE30-\uFFA0]/g,'');
 
 
 
+hbuider
+账号：1426079549@qq.com     
+密码：347128zqm2019
