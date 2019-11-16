@@ -96,7 +96,7 @@ beforeDestroy(){
           this.state = false;
           this.pullnew = "已加载完所有数据";
         } else {
-          this.pullnew = "下拉更新";
+          this.pullnew = "下拉加载";
         }
         if(this.page==1&&res.data.info.length<1){
           this.pullnew = "暂无数据";
@@ -184,15 +184,18 @@ vant.Toast({duration: 1300,message: '提示'});
 写js  axios
 this.$toast.loading({message:'正在提交',duration:0,loadingType: 'spinner '});
 .then(res=>{
-    if(res.data.code==0){
-      this.$toast.success({message:res.data.msg,duration:1600});
-      setTimeout(()=>{
-        this.$router.back();
-      },1600)
-    }else{
-      this.$toast.fail({message:res.data.msg,duration:1200});
-    }
-  })
+  if(res.data.code==0){
+    this.$toast.success({message:res.data.msg,duration:1600});
+    setTimeout(()=>{
+      this.$router.back();
+    },1600)
+  }else{
+    this.$toast.fail({message:res.data.msg,duration:1200});
+  }
+})
+.catch(err=>{
+  this.$toast.fail({message:"提交失败",duration:1200});
+})
 
 
 
@@ -435,10 +438,13 @@ axios.interceptors.response.use((res) =>{
     // Do something with response error
 })
 
+"compression-webpack-plugin": "^3.0.0",
+"image-webpack-loader": "^6.0.0",
+"uglifyjs-webpack-plugin": "^2.2.0",
 
-"lid-flexible": "1.1.0"
+"lid-flexible": "1.1.0",
 
-"qrcobejs2": "0.1.2"
+"qrcobejs2": "0.1.2",
 
 v-cloak
 
@@ -446,6 +452,11 @@ google  翻译
 class="notranslate"  添加类名，禁止google翻译
 
 :class="egls?'':'notranslate'"
+
+
+display: flex;
+justify-content: center; /* 水平居中 */
+align-items: center;     /* 垂直居中 */
 
 
 canvas转imgimg  保存图片
@@ -475,6 +486,9 @@ a{
 this.address=s.replace(/[\u4E00-\u9FA5]|[\uFE30-\uFFA0]/g,'');
 
 
+/* 清楚蓝色背景 */
+  touch-action: none;
+  user-select: none;
 
 
 hbuider
