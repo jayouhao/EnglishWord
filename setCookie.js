@@ -316,25 +316,17 @@ document.oncopy = function(){
 
 乘法浮点运算  精度
 //加 
-function floatAdd(arg1,arg2){ 
-  var r1,r2,m; 
-  try{r1=arg1.toString().split(".")[1].length}catch(e){r1=0} 
-  try{r2=arg2.toString().split(".")[1].length}catch(e){r2=0} 
-  m=Math.pow(10,Math.max(r1,r2)); 
-  return (arg1*m+arg2*m)/m; 
-} 
+var trun=Number(this.pricemax1)+0.01;
+// 四十五入
+var integer=(Math.round(trun*100))/100;
+this.pricemax1=integer;
    
 //减 
-function floatSub(arg1,arg2){ 
- var r1,r2,m,n; 
- try{r1=arg1.toString().split(".")[1].length}catch(e){r1=0} 
- try{r2=arg2.toString().split(".")[1].length}catch(e){r2=0} 
- m=Math.pow(10,Math.max(r1,r2)); 
- //动态控制精度长度 
- n=(r1>=r2)?r1:r2; 
- return ((arg1*m-arg2*m)/m).toFixed(n); 
-} 
-   
+var trun=Number(this.pricemin1)-0.01;
+// 向下取整
+var integer=(Math.floor(trun*100))/100;
+this.pricemin1=integer;
+
 //乘 
 function floatMul(arg1,arg2) { 
  var m=0,s1=arg1.toString(),s2=arg2.toString(); 
