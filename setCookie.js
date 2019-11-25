@@ -445,6 +445,7 @@ class="notranslate"  添加类名，禁止google翻译
 
 :class="egls?'':'notranslate'"
 
+img禁止拖动  draggable="false"
 
 display: flex;
 justify-content: center; /* 水平居中 */
@@ -478,7 +479,7 @@ a{
 this.address=s.replace(/[\u4E00-\u9FA5]|[\uFE30-\uFFA0]/g,'');
 
 
-/* 清楚蓝色背景 */
+/* 清楚蓝色背景  复制复制*/
   touch-action: none;
   user-select: none;
 
@@ -486,3 +487,16 @@ this.address=s.replace(/[\u4E00-\u9FA5]|[\uFE30-\uFFA0]/g,'');
 hbuider
 账号：1426079549@qq.com     
 密码：347128zqm2019
+
+
+苹果返回兼容性（js代码没执行）
+  
+  <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+  <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+  <meta HTTP-EQUIV="expires" CONTENT="0">
+
+  window.onpageshow = function (e) {
+      if (e.persisted) {
+        window.location.reload(true)
+      }
+    }
