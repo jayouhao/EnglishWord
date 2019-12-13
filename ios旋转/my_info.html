@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<!--定义视口-->
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<!-- iphone 开启对web app程序的支持 -->
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<!-- iphone 顶端返回条样式 -->
+	<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+	<!-- iphone 不为电话号码 加链接 -->
+	<meta content="telephone=no" name="format-detection" />
+	<title>个人信息</title>
+	<link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" type="text/css" href="../css/my_info.css">
+	<script src="../js/jquery.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../js/api.js"></script>
+	<script type="text/javascript" src="../js/fontsize.js"></script>
+	<script type="text/javascript" src="../js/jianfan.js"></script>
+	<script src="../js/exif.js"></script>
+	<style>
+		#upload {
+			opacity: 0;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- 头部开始 -->
+	<header id="header">
+		<a href="javascript:history.back(-1)"><img src="../images/left.png" /></a>
+		<h5>个人信息</h5>
+	</header>
+	<div class="content">
+		<ul>
+			<li>
+				<!-- <img id="oneimg" src="../images/whitelogo.png" /> -->				
+				<a href="javascript:;" style="position: relative;" class="idimg">
+					<label>头像</label>
+					<input type="file"
+						style="width: 2rem;height: 100%;color:#232323;position: absolute;top: 0;right:6%;text-indent: 120%;"
+						accept="image/jpeg,image/jpg,image/png" id="upload" class="set-file">
+					<img class="touxiang" src="../images/whitelogo.png" />
+					<img class="list_right" src="../images/right.png" />
+				</a>
+			</li>
+			<li class="nicheng">
+				<a href="javascript:;">
+					<label>昵称</label>
+
+					<img class="list_right" src="../images/right.png" />
+					<input style="height: 100%;background: #232323;color: #fff" class="nick_name" type="text"
+						readonly="readonly" />
+				</a>
+			</li>
+			<li class="xinb">
+				<a href="javascript:;">
+					<label>性别</label>
+					<img class="list_right" src="../images/right.png" />
+					<select class="sex_box" style="display: none;">
+						<option value="0">请选择</option>
+						<option value="1">男</option>
+						<option value="2">女</option>
+					</select>
+					<p id="sex"></p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<label>我的推荐人</label>
+					<span class="pid">无</span>
+				</a>
+			</li>
+
+		</ul>
+	</div>
+	<!--通知开始-->
+	<p id="msg" style="display: none"></p>
+</body>
+<script>
+	$(function () {
+		!sessionStorage.getItem("jian") ? zh_tran('t') : zh_tran('s');
+
+		var uid = localStorage.getItem("uid");
+		function start() {
+			$.ajax({
+				type: "post",//post通过ajax请求改变div元素的文本
+				url: api + "index/home/basicInfo",//api拼接请求地址
+				data: { uid: uid },//第一个deta是发送到服务端的数据，success里的data是服务端返回的数据
+				//async:true,
+				success: (res) => {  //success在ajax请求成功是执行函数
+					console.log(res)  //console对象提供对浏览器控制台的接入，可在任何全局对象中访问
+					if (res.code == 0) {  //请求的返回值为0成功
+
+						$(".touxiang").attr('src', res.data.avatar)
+
+
+						var obj = document.getElementById('sex');
+						obj.innerHTML = res.data.sex;
+						$(".sex").text(res.data.sex);
+						$(".nick_name").val(res.data.nick_name);
+						if (res.data.tuijianren) {
+							$(".pid").text(res.data.tuijianren);
+						}
+						!sessionStorage.getItem("jian") ? zh_tran('t') : zh_tran('s');
+
+						// $(".invite_code").text(res.data.pid);
+					} else {
+						console.log(res);
+					}
+				}
+			});
+		}
+		start();
+
+		$(".nicheng").on("click", function () {
+			$(".nick_name").removeAttr("readonly");
+			$(".nick_name").focus();
+
+		})
+		$(".nicheng input").on("blur", function () {
+			var value = $(this).val();
+			if (value.length < 1 || value.length > 10) {
+				$("#msg").text("请输入正确的昵称");
+				!sessionStorage.getItem("jian") ? zh_tran('t') : zh_tran('s');
+				var msg = $("#msg").text();
+				alert(msg);
+				return false;
+			}
+			$.ajax({
+				url: api + "index/home/apiEditUser",
+				type: 'POST',
+				data: { key: "nick_name", value: value, uid: uid },
+				success: (res) => {
+					if (res.code == "0") {
+
+						$("#msg").text("昵称修改成功");
+						!sessionStorage.getItem("jian") ? zh_tran('t') : zh_tran('s');
+						var msg = $("#msg").text();
+						alert(msg);
+						location.reload();
+						//console.log(res)
+					}
+
+				},
+			})
+		})
+		$(".xinb").on("click", function () {
+			$("#sex").hide();
+			$(".sex_box").show();
+		})
+		$(".sex_box").change(function () {
+			var checkValue = $(this).val();
+			if (checkValue == 0) {
+				$("#msg").text("请选择性别");
+				!sessionStorage.getItem("jian") ? zh_tran('t') : zh_tran('s');
+				var msg = $("#msg").text();
+				alert(msg);
+
+				return false;
+			}
+			$.ajax({
+				url: api + "index/home/apiEditUser",
+				type: 'POST',
+				data: { key: "sex", value: checkValue, uid: uid },
+				success: (res) => {
+					if (res.code == "0") {
+						$("#sex").show();
+						$(".sex_box").hide();
+
+						$("#msg").text("性别修改成功");
+						!sessionStorage.getItem("jian") ? zh_tran('t') : zh_tran('s');
+						var msg = $("#msg").text();
+						alert(msg);
+						location.reload();
+					}
+				},
+			})
+		})
+		//编辑用户头像
+		$('#upload').change(function () {
+
+			var file = $(this)[0];
+
+			// 转换blob对象用于上传
+			function dataURLtoBlob(dataurl) {
+				var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+					bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+				while (n--) {
+					u8arr[n] = bstr.charCodeAt(n);
+				}
+				return new Blob([u8arr], { type: mime });
+			}
+			//前端暂存图片
+			var imgs = file.files, Orientation = null;
+			var _filelist = imgs[0],
+				fileType = _filelist.type,
+				size = _filelist.size,
+				minSize = 100000,
+				imgBlobIndex = "";
+			var reader = new FileReader();
+			reader.onload = (s) => {
+				//前端要显示的图片  修改修改
+
+
+				//
+				//获取图片Orientation参数
+				EXIF.getData(_filelist, function () {
+					Orientation = EXIF.getTag(this, 'Orientation');
+					console.log(Orientation,'--值')					
+				});
+
+				var fileReader = new FileReader();
+				fileReader.readAsDataURL(_filelist);
+				fileReader.onload = function (event) {
+					var result = event.target.result;   //返回的dataURL
+					var image = new Image();
+					image.src = result;
+					image.onload = function () {//创建一个image对象，给canvas绘制使用
+
+						var cvs = document.createElement('canvas');
+						var ctx = cvs.getContext('2d');
+						var scale = 1;          //预留压缩比
+
+						cvs.width = this.width * scale;
+						cvs.height = this.height * scale;//计算等比缩小后图片宽高
+
+						if (Orientation && Orientation != 1) {
+							switch (Orientation) {
+								case 6:     // 旋转90度
+
+									cvs.width = this.height * scale;
+									cvs.height = this.width * scale;
+									ctx.rotate(Math.PI / 2);
+									// (0,-imgHeight) 从旋转原理图那里获得的起始点
+									ctx.drawImage(this, 0, -this.height * scale, this.width * scale, this.height * scale);
+									break;
+								case 3:     // 旋转180度
+									ctx.rotate(Math.PI);
+									ctx.drawImage(this, this.width * scale, -this.height * scale, this.width * scale, this.height * scale);
+									break;
+								case 8:     // 旋转-90度
+
+									cvs.width = this.height * scale;
+									cvs.height = this.width * scale;
+									ctx.rotate(3 * Math.PI / 2);
+									ctx.drawImage(this, - this.width * scale, 0, this.width * scale, this.height * scale);
+									break;
+
+							}
+						} else {
+							ctx.drawImage(this, 0, 0, cvs.width, cvs.height);
+						}
+						/* ctx.drawImage(this, 0, 0, cvs.width, cvs.height);*/
+						if (size < minSize) {
+							//小于压缩临界的，压缩0.7                              
+							var newImageData = cvs.toDataURL(fileType, 0.7);
+						} else {
+							//大于压缩临界的，根据原图的大小动态设置压缩比
+							var sca = 1 / (Math.sqrt([size / minSize])); //
+							var newImageData = cvs.toDataURL(fileType, sca);
+						}
+
+						//图片预览容器
+						// $("#oneimg").attr("src", newImageData);
+
+						var imgdata = dataURLtoBlob(newImageData);  //  创建blob 用于上传
+						imgBlobIndex = imgdata;                   //多张图片时上传用
+						console.log(imgBlobIndex, ' word')
+
+						//上传
+						var formData = new FormData();
+						formData.append('img', imgBlobIndex);
+						formData.append('uid', localStorage.uid);
+						$.ajax({
+							url: api + "index/Img/apiUploadImg",
+							type: 'POST',
+							data: formData,
+							async: false,
+							contentType: false, // 注意这里应设为false
+							processData: false,
+							success: (res) => {
+								console.log(res);
+								/* for(var i= 0;i<res.data.length;i++){
+									 img_id +=res.data[i]
+								 }*/
+								var pic = res.info.path;
+								console.log(pic);
+								$.ajax({
+									url: api + "index/home/apiEditUser",
+									type: 'POST',
+									data: { key: "avatar", value: pic, uid: uid },
+									success: (res) => {
+										if (res.code == 0) {
+											// alert("头像修改成功")
+											// 修改修改
+											start();
+										}
+									},
+								})
+							},
+							error: function (XHR, textStatus, errorThrown) {
+								$("#msg").text("网络连接失败！！！");
+								!sessionStorage.getItem("jian") ? zh_tran('t') : zh_tran('s');
+								var msg = $("#msg").text();
+								alert(msg);
+							}
+						});
+					};
+				};
+				//
+
+
+			}
+			reader.readAsDataURL(imgs[0]);
+
+
+
+
+			console.log(file.files[0], 'ceng')
+			// console.log(imgBlobIndex, ' LJZsdf第三方')
+			return;
+
+			// var formData = new FormData();
+			// formData.append('img', imgBlobIndex);
+			// formData.append('uid', localStorage.uid);
+			// $.ajax({
+			// 	url: api + "index/Img/apiUploadImg",
+			// 	type: 'POST',
+			// 	data: formData,
+			// 	async: false,
+			// 	contentType: false, // 注意这里应设为false
+			// 	processData: false,
+			// 	success: (res) => {
+			// 		console.log(res);
+			// 		/* for(var i= 0;i<res.data.length;i++){
+			// 			 img_id +=res.data[i]
+			// 		 }*/
+			// 		var pic = res.info.path;
+			// 		console.log(pic);
+			// 		$.ajax({
+			// 			url: api + "index/home/apiEditUser",
+			// 			type: 'POST',
+			// 			data: { key: "avatar", value: pic, uid: uid },
+			// 			success: (res) => {
+			// 				if (res.code == 0) {
+			// 					// alert("头像修改成功")
+			// 					// 修改修改
+			// 					start();
+			// 				}
+			// 			},
+			// 		})
+			// 	},
+			// 	error: function (XHR, textStatus, errorThrown) {
+			// 		$("#msg").text("网络连接失败！！！");
+			// 		!sessionStorage.getItem("jian") ? zh_tran('t') : zh_tran('s');
+			// 		var msg = $("#msg").text();
+			// 		alert(msg);
+			// 	}
+			// });
+
+
+		})
+
+
+	})
+</script>
+
+</html>

@@ -47,7 +47,7 @@
 
 
 
-    下拉更新
+    上拉加载
 
     <p class="pullnew">{{pullnew}}</p>
 
@@ -57,11 +57,11 @@
   text-align: center;
 }
 
-    mounted() {
+  mounted() {
     window.addEventListener("scroll", this.handleScroll, true);
   },
 
-  //下拉更新  vue下拉更新 下拉加载
+  //上拉更新  vue下拉更新 上拉加载
 
 handleScroll(){
     var scrollTop =
@@ -111,7 +111,7 @@ not vue
       var scrollTop =document.getElementsByClassName('screenHeight')[0].scrollTop;
       var windowHeight =document.getElementsByClassName('screenHeight')[0].clientHeight;
       var scrollHeight =document.getElementsByClassName('screenHeight')[0].scrollHeight;
-      if (scrollTop + windowHeight == scrollHeight) {
+      if (scrollTop + windowHeight >= scrollHeight-10) {
           //请求数据接口
           if (state) {
               page++;
@@ -130,7 +130,6 @@ autocomplete="off" name="userName"
 autocomplete="new-password" name="password"
 表单
 autocomplete="off"                  
-
 
 
 //清楚小数点   取小数点
@@ -159,8 +158,6 @@ var dom = document.getElementsByClassName("icon-right");
 跳转
 onclick="window.location.href='html'"
 onclick="window.history.go(-1)"
-
-
 
 弹出  提示
 layer.open({content: res.data.msg,skin: 'msg',time: 2});
@@ -276,9 +273,7 @@ $("#file").change(function(){
       return false;
     }
     var data = new FormData();
-    data.append('image',file);
-    // console.log(data);return false;
-    mui.showLoading("正在上传...");
+    data.append('image',file);    
     $.ajax({
       url:"/index/upload/uploadEditor",
       type:"post",
@@ -287,23 +282,14 @@ $("#file").change(function(){
       contentType:false,
       dataType:'json',
       success:function(data){
-        var url = data.data[0];
-        if(data.errno == 0)
-        {
-          mui.hideLoading();
-          $("#show").attr("src", url);
-          $("#avatar").val(url);
-        }
-        else
-        {
-          mui.alert(data.fail);
-        }
+
       }
     })
   })
 
 
-
+禁止编辑 input禁止编辑
+readonly
 
 禁止点击
 pointer-events: none;
@@ -312,6 +298,13 @@ pointer-events: none;
 document.oncopy = function(){
   return false;
 }
+
+字体描边
+-webkit-text-stroke: 1.2px #8f8b00;
+
+毛玻璃
+filter: blur(4px);
+
 
 
 乘法浮点运算  精度
@@ -355,6 +348,10 @@ jsBridge.setClipboardText(text);
 alert("已复制到剪贴板");
 
 
+// 复制邀请码
+var Url2=document.getElementById("biao1");
+    Url2.select(); // 选择对象
+    document.execCommand("Copy"); // 执行浏览器复制命令
 
 刷新
 location.reload();
@@ -393,6 +390,11 @@ if (/LT-APP/.test(navigator.userAgent)) {
 } else {
   alert("不在APP内");
 }
+
+一门
+https://app.applebyme.cn/
+xl2019
+a123456789
 
 
   
