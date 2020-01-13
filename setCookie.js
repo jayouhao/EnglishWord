@@ -136,6 +136,10 @@ autocomplete="off"
 var clear=(s)=>parseInt(Number(s)*10000)/10000;
 
 
+随机数  四舍五入
+Math.round(Math.random()*72)
+
+
 浏览器返回键
 jQuery(document).ready(function ($) {
     if (window.history && window.history.pushState) {
@@ -273,7 +277,7 @@ $("#file").change(function(){
       return false;
     }
     var data = new FormData();
-    data.append('image',file);    
+    data.append('image',file);
     $.ajax({
       url:"/index/upload/uploadEditor",
       type:"post",
@@ -502,3 +506,6 @@ hbuider
         window.location.reload(true)
       }
     }
+
+
+  
