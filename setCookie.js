@@ -165,6 +165,7 @@ onclick="window.history.go(-1)"
 
 弹出  提示
 layer.open({content: res.data.msg,skin: 'msg',time: 2});
+layer.open({content: "",skin: 'msg',time: 2});
 
 this.$toast.loading({message:'',duration:1400,type: 'text'});
 this.$toast.loading({message:res.data.msg,duration:1400,type: 'text'});
