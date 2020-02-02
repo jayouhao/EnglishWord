@@ -486,9 +486,29 @@ a{
 this.address=s.replace(/[\u4E00-\u9FA5]|[\uFE30-\uFFA0]/g,'');
 
 
-/* 清楚蓝色背景  复制复制*/
+/* 清楚蓝色背景  复制复制 a标签*/
   touch-action: none;
   user-select: none;
+
+
+深度监听
+  watch:{
+    'backinfo.switch':{
+      handler(newName, oldName){
+        console.log(newName,oldName);
+        if(newName=='grid'){
+         this.backinfo.gridswitch=true
+        }else{
+          this.backinfo.gridswitch=false
+        }
+        this.backinfo.lossswitch=false
+      },
+      immediate: true, //true 深度监听
+    }
+  },
+
+  单选框
+  $('input[name="IS_BREAK"][value="0"]').prop('checked',true);
 
 
 hbuider
@@ -507,6 +527,8 @@ hbuider
         window.location.reload(true)
       }
     }
+
+
 
 
   
