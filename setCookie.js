@@ -1,11 +1,11 @@
     function setCookie(name, value)//设置cookie  7天
-    {        
+    {
         var exp = new Date();
         exp.setTime(exp.getTime() + 7 * 24 * 60 * 60 * 1000);
         document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
     }
     setCookie("name", phoneNum);
-    
+
  function getCookie(name){
         var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
         if (arr = document.cookie.match(reg))
@@ -19,10 +19,10 @@
 
     //设置location
      this.$router.push({path:"register",query:{id:1,bt:2,cc:"撒地方"}})
-     
+
    function loca(name) {
         if (!window.location.search) return null;
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");        
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
         var r = window.location.search.split("?")[1].match(reg);
         if (r != null) return unescape(r[2]); return null;
       }
@@ -83,7 +83,7 @@ handleScroll(){
 beforeDestroy(){
     window.removeEventListener("scroll", this.handleScroll, true);
   }
-  
+
 
 判断
 .then(res=>{
@@ -107,7 +107,7 @@ beforeDestroy(){
 
 not vue
 
-  function handleScroll() {      
+  function handleScroll() {
       var scrollTop =document.getElementsByClassName('screenHeight')[0].scrollTop;
       var windowHeight =document.getElementsByClassName('screenHeight')[0].clientHeight;
       var scrollHeight =document.getElementsByClassName('screenHeight')[0].scrollHeight;
@@ -123,13 +123,13 @@ not vue
 
 
 
-input框不自动补全 
+input框不自动补全
 普通
 autocomplete="off" name="userName"
 密码
 autocomplete="new-password" name="password"
 表单
-autocomplete="off"                  
+autocomplete="off"
 
 
 //清楚小数点   取小数点
@@ -213,24 +213,24 @@ if(!self.mobile) return core.toast('请输入手机号');
 core.load("{:url('index/publics/get_new_notice')}", {}, function(res){
     console.log(res);
     if(res.code==0){
-        self.mes=res.info;                        
+        self.mes=res.info;
     }else{
         core.toast(res.msg);
     }
 })
 
-      
+
 
 
 倒计时       import { setInterval, clearInterval } from "timers";
 var sum = 10000;
-function diao(){    
+function diao(){
   console.log("要改的东西");
 };
-diao();      
+diao();
 var times = setInterval(() => {
     if (sum <= 0) {
-        clearInterval(times); 
+        clearInterval(times);
     } else {
         diao();
         sum--;
@@ -313,37 +313,37 @@ filter: blur(4px);
 
 
 乘法浮点运算  精度
-//加 
+//加
 var trun=Number(this.pricemax1)+0.01;
 // 四十五入
 var integer=(Math.round(trun*100))/100;
 this.pricemax1=integer;
-   
-//减 
+
+//减
 var trun=Number(this.pricemin1)-0.01;
 // 向下取整
 var integer=(Math.floor(trun*100))/100;
 this.pricemin1=integer;
 
-//乘 
-function floatMul(arg1,arg2) { 
- var m=0,s1=arg1.toString(),s2=arg2.toString(); 
- try{m+=s1.split(".")[1].length}catch(e){} 
- try{m+=s2.split(".")[1].length}catch(e){} 
- return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m); 
-} 
-   
-   
-//除 
-function floatDiv(arg1,arg2){ 
-  var t1=0,t2=0,r1,r2; 
-  try{t1=arg1.toString().split(".")[1].length}catch(e){} 
-  try{t2=arg2.toString().split(".")[1].length}catch(e){} 
-    
-  r1=Number(arg1.toString().replace(".","")); 
-  
-  r2=Number(arg2.toString().replace(".","")); 
-  return (r1/r2)*Math.pow(10,t2-t1); 
+//乘
+function floatMul(arg1,arg2) {
+ var m=0,s1=arg1.toString(),s2=arg2.toString();
+ try{m+=s1.split(".")[1].length}catch(e){}
+ try{m+=s2.split(".")[1].length}catch(e){}
+ return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m);
+}
+
+
+//除
+function floatDiv(arg1,arg2){
+  var t1=0,t2=0,r1,r2;
+  try{t1=arg1.toString().split(".")[1].length}catch(e){}
+  try{t2=arg2.toString().split(".")[1].length}catch(e){}
+
+  r1=Number(arg1.toString().replace(".",""));
+
+  r2=Number(arg2.toString().replace(".",""));
+  return (r1/r2)*Math.pow(10,t2-t1);
 }
 
 
@@ -402,7 +402,7 @@ xl2019
 a123456789
 
 
-  
+
 
 上传图片  图片图片
 
@@ -410,7 +410,7 @@ a123456789
           var ts = this;
           var file = e.target.files[0];
           let fd = new FormData();
-          fd.append("file", file);     
+          fd.append("file", file);
     axios.post(api + "index/Upload/uploadImg",fd
     )
 
@@ -517,7 +517,7 @@ hbuider
 
 
 苹果返回兼容性（js代码没执行）
-  
+
   <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
   <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
   <meta HTTP-EQUIV="expires" CONTENT="0">
@@ -528,7 +528,9 @@ hbuider
       }
     }
 
+电脑C盘host文件路径
+C:\Windows\System32\drivers\etc\hosts
 
-
-
-  
+谷歌浏览器设置跨域
+在C盘创建  MyChromeDevUserData文件夹
+然后在谷歌快捷方式的目标后面追加 --user-data-dir=C:\MyChromeDevUserData
